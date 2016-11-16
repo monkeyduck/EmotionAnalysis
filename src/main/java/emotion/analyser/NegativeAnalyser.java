@@ -1,8 +1,10 @@
 package emotion.analyser;
 
 import emotion.model.Context;
+import emotion.utils.Utils;
 import org.apache.commons.io.FileUtils;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +19,9 @@ public class NegativeAnalyser extends BaseAnalyser{
     private static List<String> negativeWords = new ArrayList<String>();
 
     public NegativeAnalyser() {
-        URL url = getClass().getResource("/conf/negative.txt");
-        File file = FileUtils.getFile(url.getPath());
+        InputStream inputStream = getClass().getResourceAsStream("/conf/negative.txt");
         try{
-            negativeWords = FileUtils.readLines(file);
+            negativeWords = Utils.readLines(inputStream);
         }catch (Exception e){
             e.printStackTrace();
         }

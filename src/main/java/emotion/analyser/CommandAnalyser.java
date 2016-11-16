@@ -1,9 +1,11 @@
 package emotion.analyser;
 
 import emotion.model.Context;
+import emotion.utils.Utils;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +19,9 @@ public class CommandAnalyser extends BaseAnalyser {
     private static List<String> commands = new ArrayList<String>();
 
     public CommandAnalyser() {
-        URL url = getClass().getResource("/conf/command.txt");
-        File file = FileUtils.getFile(url.getPath());
+        InputStream inputStream = getClass().getResourceAsStream("/conf/command.txt");
         try{
-            commands = FileUtils.readLines(file);
+            commands = Utils.readLines(inputStream);
         }catch (Exception e){
             e.printStackTrace();
         }

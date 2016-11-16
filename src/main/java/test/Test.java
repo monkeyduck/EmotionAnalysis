@@ -1,7 +1,8 @@
 package test;
 
-import emotion.analyser.Analyser;
 import emotion.model.Context;
+import emotion.service.IEmotionAnalysis;
+import emotion.service.impl.EmotionAnalysisImpl;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -23,7 +24,7 @@ public class Test {
         }catch (Exception e){
             e.printStackTrace();
         }
-        Analyser analyser = new Analyser();
+        IEmotionAnalysis analyser = new EmotionAnalysisImpl();
         for (int i = 0; i < input.size(); ++i){
             int start = i > 4 ? i - 4 : 0;
             List<String> userWords = new ArrayList<String>();
@@ -33,11 +34,11 @@ public class Test {
                 xiaoleWords.add(str.split("\\t")[4]);
                 userWords.add(str.split("\\t")[5]);
             }
-            Context context = new Context(userWords, xiaoleWords);
-            if (context.getUserCurrentSentence().equals("睡觉吧"))
-                System.out.println("pause");
-            double score = analyser.analyse(context);
-            System.out.println(context.getXiaoLeCurrentSentence()+"\t\t"+context.getUserCurrentSentence());
+//            Context context = new Context(userWords, xiaoleWords);
+//            if (context.getUserCurrentSentence().equals("睡觉吧"))
+//                System.out.println("pause");
+            double score = analyser.analyse(userWords);
+//            System.out.println(context.getXiaoLeCurrentSentence()+"\t\t"+context.getUserCurrentSentence());
             if (score > 0){
                 System.out.println(score);
             }

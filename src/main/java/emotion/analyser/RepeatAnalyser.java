@@ -2,10 +2,14 @@ package emotion.analyser;
 
 import emotion.model.Context;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import emotion.utils.Utils;
 import org.apache.commons.io.FileUtils;
 import java.io.File;
 
@@ -14,24 +18,18 @@ import java.io.File;
  * Created by llc on 16/10/21.
  */
 public class RepeatAnalyser extends BaseAnalyser{
-    static class Threshold{
-        static int singleRepeatTimes = 3;
-        static int prevRepeatTimes = 2;
-    }
-    static class Utils{
-        static List<String> ignoreWords;
+    private static List<String> ignoreWords;
+    private static int singleRepeatTimes = 3;
 
-        static {
-            URL url = Utils.class.getResource("/conf/ignore.txt");
-            System.out.println(url.getFile());
-            File file = FileUtils.getFile(url.getPath());
-            try{
-                ignoreWords = FileUtils.readLines(file);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+    static {
+        InputStream inputStream = RepeatAnalyser.class.getResourceAsStream("/conf/ignore.txt");
+        try {
+            ignoreWords = Utils.readLines(inputStream);
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
+
     public int calRepeatScores(Context context){
         String sentence = context.getUserCurrentSentence();
         if (sentence == null || "".equals(sentence)) return 0;
@@ -48,7 +46,7 @@ public class RepeatAnalyser extends BaseAnalyser{
                 ngram = ngram.replaceAll("\\+", "");
                 ngram = ngram.replaceAll("\\?", "");
                 ngram = ngram.replaceAll("\\.", "");
-                if (Utils.ignoreWords.contains(ngram)) continue;
+                if (ignoreWords.contains(ngram)) continue;
                 if (!single){
                     Pattern p = Pattern.compile(ngram);
                     Matcher m = p.matcher(sentence); // 获取 matcher 对象
@@ -58,7 +56,7 @@ public class RepeatAnalyser extends BaseAnalyser{
                         count++;
                     }
 
-                    if (count >= Threshold.singleRepeatTimes) {
+                    if (count >= singleRepeatTimes) {
                         single = true;
                     }
                 }
@@ -82,7 +80,7 @@ public class RepeatAnalyser extends BaseAnalyser{
         return score;
     }
     public static void main(String agrs[]){
-        List<String> list = Utils.ignoreWords;
+        List<String> list = ignoreWords;
         for(String str: list){
             System.out.println(str);
         }

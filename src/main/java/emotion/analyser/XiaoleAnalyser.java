@@ -41,9 +41,10 @@ public class XiaoleAnalyser extends BaseAnalyser{
     }
 
     public int analyse(Context context){
-        if (shakeAnalysis(context) || wrongTipAnalysis(context) || repeatAnalysis(context))
-            return 1;
-        else
-            return 0;
+        int score = 0;
+        score += shakeAnalysis(context) ? 1 : 0;
+        score += wrongTipAnalysis(context) ? 1 : 0;
+        score += repeatAnalysis(context) ? 1 : 0;
+        return score;
     }
 }
