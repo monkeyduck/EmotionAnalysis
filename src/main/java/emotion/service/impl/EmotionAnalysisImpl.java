@@ -22,12 +22,15 @@ public class EmotionAnalysisImpl implements IEmotionAnalysis{
         Context context = new Context(userSentences);
         int score = 0;
         double total = 10.0;
-        score += repeatAnalyser.analyse(context);
-        score += negativeAnalyser.analyse(context);
-        score += xiaoleAnalyser.analyse(context);
-        score += commandAnalyser.analyse(context);
-        score += structAnalyser.analyse(context);
-        double ret = (double) score / total;
+        double ret = 0.0;
+        if (context.isValid()) {
+            score += repeatAnalyser.analyse(context);
+            score += negativeAnalyser.analyse(context);
+            score += xiaoleAnalyser.analyse(context);
+            score += commandAnalyser.analyse(context);
+            score += structAnalyser.analyse(context);
+            ret = (double) score / total;
+        }
         return ret;
     }
 

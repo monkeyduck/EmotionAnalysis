@@ -1,17 +1,13 @@
 package emotion.analyser;
 
 import emotion.model.Context;
+import emotion.utils.Utils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import emotion.utils.Utils;
-import org.apache.commons.io.FileUtils;
-import java.io.File;
 
 
 /**
@@ -63,8 +59,7 @@ public class RepeatAnalyser extends BaseAnalyser{
                 int times = 0;
                 int prevNum = context.getUserSentences().size();
                 for (int i = 0; i < prevNum - 1; ++i){
-                    if (context.getUserSentences().get(i).contains(ngram)
-                            && !context.getXiaoleSentences().get(i).contains(ngram)){
+                    if (context.getUserSentences().get(i).contains(ngram)) {
                         times++;
                     }
                 }

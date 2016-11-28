@@ -62,4 +62,8 @@ public class Context {
     public int getNonFirstTimes() {
         return nonFirstTimes;
     }
+
+    public boolean isValid() {
+        return userSentences.size() > 0 && xiaoleSentences.size() > 0;
+    }
 }
