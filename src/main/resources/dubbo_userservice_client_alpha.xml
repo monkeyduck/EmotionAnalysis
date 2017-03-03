@@ -15,8 +15,8 @@
 
     <!-- 使用zookeeper注册中心暴露服务地址 -->
     <!--<dubbo:registry address="zookeeper://123.56.232.61:2888" />-->
-    <dubbo:registry address="zookeeper://127.0.0.1:2888" />
-
+    <!--<dubbo:registry address="zookeeper://127.0.0.1:2888" />-->
+    <dubbo:registry protocol="zookeeper" address=" 10.25.113.47:2888,10.45.146.36:2888,10.25.115.47:2888,10.25.115.26:2888" />
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
     <dubbo:reference id="IEmotionAnalysis" interface="emotion.service.IEmotionAnalysis" />
 

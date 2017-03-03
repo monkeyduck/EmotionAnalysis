@@ -1,7 +1,5 @@
 package emotion.service;
 
-import emotion.model.Context;
-
 import java.util.List;
 
 /**
@@ -9,5 +7,4 @@ import java.util.List;
  */
 public interface IEmotionAnalysis {
     double analyse(List<String> sentences);
-    String test(String string);
 }

@@ -2,13 +2,9 @@ package emotion.analyser;
 
 import emotion.model.Context;
 import emotion.utils.Utils;
-import org.apache.commons.io.FileUtils;
-
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
